@@ -74,8 +74,8 @@ func ResourceRoutingBgpConnection() *schema.Resource {
 		"add_path_out": {
 			Type:         schema.TypeString,
 			Optional:     true,
-			Description:  "",
-			Default:      "none",
+			Computed:     true,
+			Description:  "Advertise multiple paths to the same prefix. Removed in RouterOS v7.22+.",
 			ValidateFunc: validation.StringInSlice([]string{"all", "none"}, false),
 		},
 		"address_families": {
@@ -301,10 +301,9 @@ func ResourceRoutingBgpConnection() *schema.Resource {
 			},
 		},
 		"instance": {
-			Type:             schema.TypeString,
-			Optional:         true,
-			Description:      "Name of the instance this VPN is assigned to.",
-			DiffSuppressFunc: AlwaysPresentNotUserProvided,
+			Type:        schema.TypeString,
+			Required:    true,
+			Description: "Name of the BGP instance this connection is assigned to.",
 		},
 		"keepalive_time": {
 			Type:             schema.TypeString,

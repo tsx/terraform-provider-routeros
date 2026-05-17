@@ -60,8 +60,8 @@ func ResourceRoutingBgpTemplate() *schema.Resource {
 		"add_path_out": {
 			Type:         schema.TypeString,
 			Optional:     true,
-			Description:  "",
-			Default:      "none",
+			Computed:     true,
+			Description:  "Advertise multiple paths to the same prefix. Removed in RouterOS v7.22+.",
 			ValidateFunc: validation.StringInSlice([]string{"all", "none"}, false),
 		},
 		"address_families": {
