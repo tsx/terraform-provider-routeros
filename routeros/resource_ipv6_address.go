@@ -153,7 +153,10 @@ func ResourceIPv6Address() *schema.Resource {
 			Computed:    true,
 			Description: "Whether address belongs to an interface which is a slave port to some other master interface",
 		},
-		KeyVrf: PropVrfRw,
+		// vrf is read-only here: RouterOS 7.21+ rejects writes to it on
+		// /ipv6 address rows tied to interfaces that don't carry a VRF
+		// concept (same issue as /ip address, closes #944 equivalent).
+		KeyVrf: PropVrfRo,
 	}
 	return &schema.Resource{
 		CreateContext: DefaultCreate(resSchema),
